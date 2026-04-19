@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 void bfs(int startNode, int obj, const vector<vector<int>>& adj, int V){
-    vector<bool> visited(V, false);//para usar 1,2,3 en vez de 0,1,2
+    vector<bool> visited(V, false);
     vector<int> dist(V,0);//cuenta la cantidad de pasos hasta el nodo n
     vector<int> parent(V,-1); //guarda el camino final optimo
     queue<int> proc;
