@@ -2,27 +2,26 @@
 using namespace std;
 using pii = pair<int,int>;
 void dijkstra(int source, const vector<vector<pii>>& adj, vector<long long>& dist, int velocidad, int tiempototal,vector<int>& visitas) {
-    int V = adj.size(); // vértices en el grafo
-    // Cola de prioridad
+    int V = adj.size(); // total vertex
+    // priority queue
     priority_queue<pii, vector<pii>, greater<pii>> pq;
-    // Inicializa distances all vertices as infinite
+    // Initialize distances all vertices as infinite
     dist.assign(V, numeric_limits<int>::max());
     dist[source] = 0; // Distancia al nodo origen es 0
     pq.push({0, source});
-    // Procesa la cola de propiedad
     while (!pq.empty()) {
         int d = pq.top().first; // Get the distance of the vertex
         int u = pq.top().second; // Get the vertex with the smallest distance 
-        pq.pop(); // Remove the vertex from the priority queue
+        pq.pop(); 
 
         // Skip processing if the distance is not optimal (stale entry)
         if (d > dist[u]) continue;
 
         // Traverse all neighbors of the vertex u
         for (const auto& edge : adj[u]) {
-            int weight = edge.first;// Neighbor vertex
-            int v = edge.second;    // Edge weight
-            // Relaxation step: update the distance if a shorter path is found
+            int weight = edge.first;
+            int v = edge.second;
+            
             if (dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight;
                 pq.push({dist[v], v});
