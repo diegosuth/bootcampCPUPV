@@ -28,7 +28,7 @@ bool isValid(int r, int c,int vertex,int edges) {
 }
 
 // DFS que retorna true si encontramos el camino
-bool DFS(int r, int c, int verticestots, int edges, vector<pii>& calles) {
+bool DFS(int verticestots, int edges, vector<pii>& calles) {
         
 }
 
@@ -41,6 +41,7 @@ int main() {
     cin >> verticestots >> edges >> start;
     vector<vector<int>> conexiones(verticestots);
     vector<pii> calles(edges);
+    vector<vector<bool>> visitedaristas(verticestots);
     start--;
     int a;
     int b;
