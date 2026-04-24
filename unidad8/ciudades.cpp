@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using pii = pair<int,int>;
-bool bfs(int startNode, int edges, const vector<vector<int>>& adj, int V){//para revisar si todos estan conectados
+bool bfs(int startNode, int edges, const vector<vector<pii>>& adj, int V){//para revisar si todos estan conectados
     vector<bool> nodevisited(V, false);
     queue<int> nodeproc;//queue para procesar nodos
     nodevisited[startNode] = true;
@@ -9,10 +9,10 @@ bool bfs(int startNode, int edges, const vector<vector<int>>& adj, int V){//para
     while(!nodeproc.empty()){
         int currentnode = nodeproc.front();
         nodeproc.pop();
-        for(int neighbour: adj[currentnode]){//reviso todos los nodos conectados a current
-            if(!nodevisited[neighbour]){
-                nodevisited[neighbour] = true;
-                nodeproc.push(neighbour);//guardo el encontrado para explorar sus vecinos luego
+        for(auto const& neighbour: adj[currentnode]){//reviso todos los nodos conectados a current
+            if(!nodevisited[neighbour.first]){
+                nodevisited[neighbour.first] = true;
+                nodeproc.push(neighbour.first);//guardo el encontrado para explorar sus vecinos luego
             }
         }
     }
@@ -23,13 +23,17 @@ bool bfs(int startNode, int edges, const vector<vector<int>>& adj, int V){//para
     }
     return true;
 }
-bool isValid(int r, int c,int vertex,int edges) {
-    return r >= 0 && r < vertex  && c >= 0 && c < edges;
-}
 
 // DFS que retorna true si encontramos el camino
-bool DFS(int verticestots, int edges, vector<pii>& calles) {
-        
+void DFS(int inicio,vector<vector<pii>>& conexiones, vector<bool>& visited, vector<int>& caminofinal) {
+        for(auto const& neighbour : conexiones[inicio]){
+            if(visited[neighbour.second]){
+                continue;
+            }
+            visited[neighbour.second] = true;
+            DFS(neighbour.first,conexiones,visited,caminofinal);
+        }
+        caminofinal.push_back(inicio);
 }
 
 int main() {
@@ -39,9 +43,9 @@ int main() {
     int edges;
     int start;
     cin >> verticestots >> edges >> start;
-    vector<vector<int>> conexiones(verticestots);
-    vector<pii> calles(edges);
-    vector<vector<bool>> visitedaristas(verticestots);
+    vector<vector<pii>> conexiones(verticestots);
+    vector<int> caminofinal;
+    vector<bool> visited(edges,false);
     start--;
     int a;
     int b;
@@ -49,9 +53,8 @@ int main() {
         cin >> a >> b;
         a--;
         b--;
-        calles[i] = {a,b};
-        conexiones[a].push_back(b);
-        conexiones[b].push_back(a);
+        conexiones[a].push_back({b,i});
+        conexiones[b].push_back({a,i});
     }
     bool evendegree = true;
     for(int v = 0; v < verticestots;v++){
@@ -64,7 +67,10 @@ int main() {
         cout << -1 << endl;
     }
     else{
-        
+        DFS(start,conexiones,visited,caminofinal);
+        for(int d : caminofinal){
+            cout << d + 1 << endl;
+        }
     }
     return 0;    
 }
