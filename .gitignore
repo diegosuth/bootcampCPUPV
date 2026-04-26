@@ -8,4 +8,3 @@
 #this ones I dont want to ignore
 !Makefile
 !.gitignore
-.DS_Store
