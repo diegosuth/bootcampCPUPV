@@ -4,7 +4,6 @@
 !*/
 #and any file with an extension
 !*.*
-/
 .DS_Store
 #this ones I dont want to ignore
 !Makefile
