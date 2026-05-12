@@ -65,7 +65,6 @@ int main() {
         cin >> originaname >> originbname;
         int origina = nametonumber[originaname];
         int originb = nametonumber[originbname];
-        unordered_map<int,int> coincidencias;
         vector<double> distanciadesdea(verticestots,numeric_limits<double>::infinity());
         vector<double> distanciadesdeb(verticestots,numeric_limits<double>::infinity());
         dijkstra(origina,verticestots,conexiones,distanciadesdea);

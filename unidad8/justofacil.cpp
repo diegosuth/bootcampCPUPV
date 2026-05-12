@@ -62,7 +62,6 @@ int main() {
     }
     int origina = nametonumber[originaname];
     int originb = nametonumber[originbname];
-    unordered_map<int,int> coincidencias;
     dijkstra(origina,verticestots,conexiones,distanciadesdea);
     dijkstra(originb,verticestots,conexiones,distanciadesdeb);
     vector<int> coincidenciasfinales;
